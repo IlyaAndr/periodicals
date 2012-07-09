@@ -1,0 +1,47 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @kind.name
+
+- if can? :edit, @kind
+  = link_to 'Edit', edit_kind_path(@kind), class: 'btn btn-info'
+= link_to 'Back', kinds_path, class: 'btn'
+
+.row
+  .span2 &nbsp;
+  %h2 Listing editions of #{@kind.name}
+
+  - if not @editions.empty?
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Image
+          %th Title
+          %th Description
+          %th Price
+          -if user_signed_in? 
+            %th Add to cart
+          -if can? :edit, Edition
+            %th Edit
+          -if can? :destroy, Edition
+            %th Destroy
+      %tbody
+        - @editions.each do |edition|
+          %tr
+            %td
+              -if edition.image?
+                = image_tag edition.image.url(:thumb)
+            %td= link_to edition.title, edition, class: 'btn'
+            %td= strip_tags truncate(markdown edition.description)
+            %td= number_to_currency edition.price
+            -if user_signed_in? 
+              %td= link_to 'Add', add_to_cart_user_path(id: current_user.id, edition_id: edition.id), method: :post, class: 'btn btn-success'
+            -if can? :edit, edition
+              %td= link_to 'Edit', edit_edition_path(edition), class: 'btn btn-info'
+            -if can? :destroy, edition
+              %td= link_to 'Destroy', edition, confirm:'Are you sure?', method: :delete, class: 'btn btn-warning'
+    .pagination-centered= will_paginate @editions
+  - else
+    %h3 No editions yet
+  %br

@@ -1,0 +1,25 @@
+.row
+  .span2 &nbsp;
+  %h2 Cart
+
+  - if not @container_items.empty?
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Edition
+          %th Quantity
+          %th Price
+          %th Delete from cart
+      %tbody
+        - @container_items.each do |item|
+          %tr
+            %td= link_to item.edition.title, item.edition, class: 'btn'
+            %td= item.quantity
+            %td= number_to_currency item.price
+            %td= link_to 'Delete', delete_from_cart_user_path(id:current_user.id, container_item_id: item.id), :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger'
+    .pagination-centered= will_paginate @container_items
+    %h3 Total price: #{number_to_currency @user.cart.price}
+    =render partial: 'users/subscription_form'
+  - else
+    %h3 Cart is empty
+  %br

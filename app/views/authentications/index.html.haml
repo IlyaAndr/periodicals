@@ -1,0 +1,21 @@
+.row
+  .span1 &nbsp;
+  %h2 Listing Authentications of #{@user.username}
+
+  - if not @authentications.empty?
+    %table.table.table-striped
+      %tr
+        %th User
+        %th Provider
+        %th Uid
+        %th
+
+      - @authentications.each do |authentication|
+        %tr
+          %td= link_to "#{@user.username}", edit_user_path(@user), class: 'btn'
+          %td= authentication.provider
+          %td= authentication.uid
+          %td= link_to 'Destroy', user_authentication_path(user_id: @user.id, id: authentication.id), :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-warning'
+  - else
+    %h3 No authentications
+  %br

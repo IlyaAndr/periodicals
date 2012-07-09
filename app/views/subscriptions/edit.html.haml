@@ -1,0 +1,7 @@
+.row
+  .span2 &nbsp;
+  %h2 Edit subscription
+  = render 'form'
+
+  = link_to 'Back', user_subscriptions_path(user_id:  @user.id), class: 'btn'
+  = link_to 'Show', user_subscription_path(user_id:  @user.id, id: @subscription.id), class: 'btn btn-info'

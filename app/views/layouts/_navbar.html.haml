@@ -1,0 +1,41 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to root_path, class: 'brand' do
+        %i.icon-home
+        Periodicals
+      .nav-collapse
+        =render partial: 'layouts/search_form'
+        %ul.nav.pull-right
+          - if user_signed_in?
+            %li
+              = link_to user_subscriptions_path(current_user) do
+                %i.icon-pencil{icon_style}
+                Subscriptions
+            %li
+              = link_to cart_user_path(current_user) do
+                %i.icon-shopping-cart{icon_style}
+                Cart
+            %li.divider-vertical
+            %li
+              = link_to destroy_user_session_path, method: :delete do
+                %i.icon-off{icon_style}
+                Logout
+          - else
+            %li
+              = link_to facebook_authentication_path do
+                %i.icon-facebook-sign{icon_style(24)}
+            %li
+              = link_to new_user_registration_path do
+                %i.icon-ok{icon_style}
+                Register
+            %li.divider-vertical
+            %li
+              = link_to new_user_session_path do
+                %i.icon-share-alt{icon_style}
+                Login
+

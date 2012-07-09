@@ -1,0 +1,31 @@
+%p
+  %b Start date:
+  = @subscription.start_date
+%p
+  %b End date:
+  = @subscription.end_date
+%p
+  %b Paid: 
+  = @subscription.paid? ? "Yes" : "No"
+
+  .row
+  .span2 &nbsp;
+  %h2 Editions
+
+  - if not @container_items.empty?
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Edition
+          %th Quantity
+          %th Price
+      %tbody
+        - @container_items.each do |item|
+          %tr
+            %td= link_to item.edition.title, item.edition, class: 'btn'
+            %td= item.quantity
+            %td= number_to_currency item.price
+    .pagination-centered= will_paginate @container_items
+    %h3 Total price: #{number_to_currency @subscription.price}
+
+= link_to 'Back', user_subscriptions_path(@user), class: 'btn'

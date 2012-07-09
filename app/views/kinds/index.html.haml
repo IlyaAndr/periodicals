@@ -1,0 +1,25 @@
+.row
+  .span2 &nbsp;
+  %h2 Listing kinds
+
+  - if not @kinds.empty?
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Name
+          -if can? :edit, Kind
+            %th Edit
+          -if can? :destroy, Kind
+            %th Destroy
+      %tbody
+        - @kinds.each do |kind|
+          %tr
+            %td= link_to kind.name, kind, class: 'btn'
+            -if can? :edit, kind
+              %td= link_to 'Edit', edit_kind_path(kind), class: 'btn btn-info'
+            -if can? :destroy, kind
+              %td= link_to 'Destroy', kind, confirm: 'Are you sure?', method: :delete, class: 'btn btn-warning'
+    .pagination-centered= will_paginate @kinds
+  - else
+    %h3 No kinds yet
+

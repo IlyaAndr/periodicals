@@ -1,0 +1,7 @@
+.well.sidebar-nav
+  %h3 New on site:
+  %ul.nav.nav-list
+    %li.nav-header 
+      %i.icon-bookmark{icon_style}
+      New editions
+    = render(partial: "layouts/edition", collection: @last_updated_editions, as: :edition) || 'No editions yet'

@@ -1,0 +1,23 @@
+%br
+.row
+  .span4.offset1
+    %ul.thumbnails
+      %li.span4
+        .thumbnail
+          -if @edition.image?
+            = image_tag @edition.image.url(:medium), alt: @edition.title
+          .caption
+            %h3= @edition.title
+            %p=  markdown @edition.description
+            %h4 Price: #{number_to_currency @edition.price}
+            -unless @edition.kinds.empty?
+              %br
+              %h5 Kinds:
+              %p= kinds_links_join(@edition).html_safe
+            %br
+            %p
+            - if can? :edit, @edition
+              = link_to 'Edit', edit_edition_path(@edition), class: 'btn btn-info'
+            = link_to 'Back', editions_path, class: 'btn'
+
+

@@ -1,0 +1,35 @@
+.row
+  .span2 &nbsp;
+  %h2 Listing subscriptions
+
+  - if not @subscriptions.empty?
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Start date
+          %th End date
+          %th Paid
+          %th Price
+          -if can? :show, Subscription
+            %th Details
+          -if can? :edit, Subscription
+            %th Edit
+          -if can? :destroy, Subscription
+            %th Unsubscribe
+      %tbody
+        - @subscriptions.each do |subscription|
+          %tr
+            %td= subscription.start_date
+            %td= subscription.end_date
+            %td= pay_button @user, subscription
+            %th= number_to_currency subscription.price
+            -if can? :show, subscription
+              %td= link_to 'details', user_subscription_path(user_id: @user.id, id: subscription.id), class: 'btn btn-info'
+            -if can? :edit, subscription
+              %td= link_to 'Edit', edit_user_subscription_path(user_id: @user.id, id: subscription.id), class: 'btn btn-danger'
+            -if can? :destroy, subscription
+              %td= link_to 'unsubscribe', user_subscription_path(user_id: @user.id, id: subscription.id), :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-warning'
+    .pagination-centered= will_paginate @subscriptions
+  - else
+    %h3 No subscriptions yet
+  %br

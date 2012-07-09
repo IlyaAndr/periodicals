@@ -1,0 +1,22 @@
+.row
+  .span2 &nbsp;
+  %h2 Users
+  %table.table.table-striped
+    %thead
+      %tr
+        %th username
+        %th email
+        %th Cart
+        %th Subscriptions
+        %th Authentications
+        %th Destroy
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td= link_to user.username, edit_user_path(user), class: 'btn'
+          %td= user.email
+          %td= link_to "Cart", cart_user_path(user), class: 'btn btn-info'
+          %td= link_to "Subscriptions", user_subscriptions_path(user_id: user.id), class: 'btn btn-info'
+          %td= link_to "Authentications", user_authentications_path(user_id: user.id), class: 'btn btn-info'
+          %td= link_to 'destroy', user_path(user), :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger'
+  %br
