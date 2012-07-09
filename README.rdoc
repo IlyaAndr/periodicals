@@ -1,1 +1,6 @@
-Periodicals application.
+
+== Periodicals application. Subscribe it!
+
+To start the fulltext search print:
+
+    bundle exec rake sunspot:solr:start
