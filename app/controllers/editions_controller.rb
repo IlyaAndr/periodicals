@@ -3,6 +3,8 @@ class EditionsController < ApplicationController
   load_and_authorize_resource 
   before_filter :authenticate_user!, except: [:index, :show]
 
+  cache_sweeper :edition_sweeper
+
   def index
     @editions = Edition.paginate(:page => params[:page]).order(:title)
   end

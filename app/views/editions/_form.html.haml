@@ -1,5 +1,5 @@
 
-= simple_form_for @edition, html: {class: 'well form-horizontal', multipart: true } do |f|
+= simple_form_for @edition, html: {class: 'well form-horizontal'} do |f|
 
   = f.input :title, prompt: "Input title"
   = f.input :description, input_html: {rows: 3, maxlength: 400, class: 'markitup'}

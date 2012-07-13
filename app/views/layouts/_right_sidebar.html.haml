@@ -4,4 +4,5 @@
     %li.nav-header 
       %i.icon-bookmark{icon_style}
       New editions
-    = render(partial: "layouts/edition", collection: @last_updated_editions, as: :edition) || 'No editions yet'
+    - cache "new_editions" do
+      = render(partial: "layouts/edition", collection: @last_updated_editions, as: :edition) || 'No editions yet'

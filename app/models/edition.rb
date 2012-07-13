@@ -30,7 +30,7 @@ class Edition < ActiveRecord::Base
 
   validates :price, presence: true, numericality: {greater_than_or_equal_to: 1, less_than: 2000}
 
-  validates_attachment :image, :presence => true,
+  validates_attachment :image,# :presence => true,
   :content_type => { :content_type => ["image/jpg", "image/png", "image/jpeg"] },
   :size => { :in => 0..1.megabyte }
 
